@@ -550,13 +550,13 @@ export default function(olLayer, glStyle, source, resolutions, spriteData, sprit
                     spriteImageData.height
                   );
                   const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                  if (iconColor !== null) {
+                  if (iconColor !== null && spriteImageData.sdf) {
                     // cut out the sprite and color it
                     color = colorWithOpacity(iconColor, 1);
-                    for (let c = 0, cc = data.data.length; c < cc; c += 4) {
-                      data.data[c] = color[0];
-                      data.data[c + 1] = color[1];
-                      data.data[c + 2] = color[2];
+                    for (var c = 0, cc = data.data.length; c < cc; c += 4) {
+                      data.data[c] = iconColor.r * 255;
+                      data.data[c + 1] = iconColor.g * 255;
+                      data.data[c + 2] = iconColor.b * 255;
                     }
                   }
                   ctx.putImageData(data, 0, 0);
