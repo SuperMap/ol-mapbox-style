@@ -629,7 +629,11 @@ export default function(olLayer, glStyle, source, resolutions, spriteData, sprit
         let label;
         if ('text-field' in layout) {
           const textField = getValue(layer, 'layout', 'text-field', zoom, f);
-          label = fromTemplate(textField, properties);
+          if (typeof textField === 'object' && textField.sections && textField.sections.length === 1) {
+            label = textField.toString();
+          } else {
+            label = fromTemplate(textField, properties);
+          }
         }
         if (label && !skipLabel) {
           if (!hasImage) {
